@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.App
+{
+    width: 100%;
+}
+
+.wholeContainer{
+    width: 70%;
+}
+
+.cart_icon
+{
+    
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+}
+
+.cart_icon > svg{
+    width: 50px;
+    height: 50px;
+}
+.numOfCartItems{
+    position: absolute;
+    top: 0;
+    left: -5px;
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    text-align: center;
+    
+}
+
+.backToShopping
+{
+    background-color: aquamarine;
+    color: green;
+    border: none;
+    height: 50px;
+    width: 80px;
+    border-radius: 20%;
+}
+
+.backToShopping:hover{
+    cursor: pointer;
+}
+
+.afterItems
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.afterItems > .totalSum{
+    margin-left: auto;
+}
+
+h1{
+    text-align: center;
+}
+
+.headers{
+    margin-top: 40px;
+    display: flex;
+    gap: 50px;
+    justify-content: flex-end;
+}
+
+.headers > :first-child
+{
+   margin-right: auto;
+}
+img{
+    width: 90px;
+    height: 90px;
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.allItems{
+    display: flex;
+    flex-direction: column;
+}
+
+.oneItem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+    border-top: 1px solid green;
+    border-bottom: 1px solid green;
+}
+.properties{
+    width:60%;
+    position: relative;
+    margin-left: 10px;
+}
+
+
+
+.restOfProperties
+{
+    width:40%;
+    display: flex;
+    gap: 30px;
+    justify-content: flex-end;
+}
+
+.restOfProperties  :first-child{
+    margin-left: -10px;
+}
+
+.restOfProperties > div{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    text-align: center;
+}
+/*.restOfProperties > :nth-child(2){
+    margin-left: auto;
+}
+.restOfProperties > :first-child{
+   margin-right: auto;
+}*/
+
+.quantity{
+    display: flex;
+}
+
+.quantity  button{
+    width: 30px;
+}
+.quantity input{
+    text-align: center;
+    width: 30px;
+}
+
+.totalPrice{
+    margin-left: auto;
+}
+
+
+
