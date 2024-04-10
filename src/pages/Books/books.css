@@ -14,7 +14,7 @@
     height: 100vh;
     width: 100vw;
     overflow-x: hidden;
-    overflow-y:scroll;
+    
     
 }
 
@@ -42,41 +42,94 @@
     margin: 5px auto;
 }
 
+@keyframes slide {
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-50px);
+    }
+}
+
 .books
 {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
     
-    overflow-y: hidden;
+   
+    width: 100vw;
+    transition: transform 0.5s ease ;
+    position: relative;
+    overflow: visible;
+    animation: slide 1s ease-in;
 }
 
 .swiper-slide{
     margin-left: 50px;
 }
 
+  .arrowLeft 
+{
+    
+    position: sticky;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    top: 50%;
+    z-index: 7;
+   
+}
+
+.arrowRight
+{
+    position: absolute;
+    z-index: 7;
+    padding: 0;
+    right: 0;
+    top: 50%;
+}
+
+.arrowLeft > svg{
+    width: 30px;
+    height: 30px;
+}
+
+.arrowRight > svg{
+    width: 30px;
+    height: 30px;
+   
+}
+
+.moveLeft{
+    transform: translateX(-50px);
+}
+
 .book{
     display: flex;
     flex-direction: column;
-    width: calc(100vw / 6 - 100px);
+    min-width: calc(100% / 6);/*min-width kontrolise koliko knjiga se prikazuju*/
     margin-top: 10px;
-    
-    
 }
 
-.book > img{
-    width: inherit;
+.book img{
+    width: 100%;
     height: 200px;
-    padding: 0;
+    padding: 10px;
+    
 }
 
 .book > img:hover{
-    
+    transition: scale 0.5s ease ;
+    scale: 1.1;
 }
   .book > h2{
     width:inherit;
 }
 
-.title{
+.book .title{
+    text-align:center;
+    
+}
+.price{
+    color: red;
     text-align: center;
 }

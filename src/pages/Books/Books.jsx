@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Add from "../Add";
 import Sidebar from "../Sidebar";
@@ -17,6 +17,8 @@ import "swiper/swiper-bundle.css";
 
 // import required modules
 import { Navigation } from "swiper/modules";
+import { FaCircleArrowLeft } from "react-icons/fa6";
+import { FaCircleArrowRight } from "react-icons/fa6";
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -30,9 +32,13 @@ const Books = () => {
     price: 0,
     picture: "",
   });
-  const [showAddToCartButton, setShowAddToCartButton] = useState(false);
+
+  const [moveBooks, setMoveBooks] = useState(0);
+  const [showAddToCartButton, setShowAddToCartButton] = useState([]);
 
   const { cart, setCart } = useGlobalContext();
+
+  const bookMove = useRef(null);
 
   const navigate = useNavigate();
 
@@ -123,12 +129,36 @@ const Books = () => {
     }
   };
 
-  const handleMouseEnter = () => {
-    setShowAddToCartButton(true);
+  const handleMouseEnter = (index) => {
+    setShowAddToCartButton((prevState) => {
+      const newState = [...prevState];
+      newState[index] = true;
+      return newState;
+    });
   };
 
-  const handleMouseLeave = () => {
-    setShowAddToCartButton(false);
+  const handleMouseLeave = (index) => {
+    setShowAddToCartButton((prevState) => {
+      const newState = [...prevState];
+      newState[index] = false;
+      return newState;
+    });
+  };
+
+  const handleMoveImagesLeft = () => {
+    console.log("Uso sam");
+    //arrowImagesLeft.current.classList.add("moveLeft");
+    //arrowImagesLeft.current.classList.remove("moveLeft");
+    let offset = bookMove.current.getBoundingClientRect();
+    console.log(offset.width);
+    setMoveBooks(moveBooks - offset.width);
+    //const element = arrowImagesLeft.current;
+    //element.style.transform = "translateX(-50px)";
+  };
+
+  const handleMoveImagesRight = () => {
+    let offset = bookMove.current.getBoundingClientRect();
+    setMoveBooks(moveBooks + offset.width);
   };
 
   const settings = {
@@ -158,37 +188,34 @@ const Books = () => {
             />
           </div>
           <button onClick={navigateToAdd}>Add Book</button>
-          <Swiper
-            navigation={true}
-            slidesPerView={6}
-            modules={[Navigation]}
-            className="mySwiper"
-          >
-            <div className="books">
-              {currentBooks.map((book) => (
-                <SwiperSlide className="swiperSlide">
-                  <div className="book" key={book.id}>
-                    <img
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
-                      src={book.picture}
-                      alt="slika"
-                    />
-                    <p className="title">{book.title}</p>
-                    <p>{book.description}</p>
-                    <p>{book.author}</p>
-                    <p>{book.genre}</p>
-                    <p>{book.price}</p>
-                    {showAddToCartButton && (
-                      <button onClick={() => addToCart(book)}>
-                        Add to cart
-                      </button>
-                    )}
-                  </div>
-                </SwiperSlide>
+          <div className="books-container">
+            <div className="arrowLeft" onClick={handleMoveImagesLeft}>
+              <FaCircleArrowLeft />
+            </div>
+            <div className="arrowRight" onClick={handleMoveImagesRight}>
+              <FaCircleArrowRight />
+            </div>
+            <div
+              className="books"
+              style={{ transform: `translateX(${moveBooks}px)` }}
+            >
+              {currentBooks.map((book, index) => (
+                <div className="book" ref={bookMove} key={book.id}>
+                  <img
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={() => handleMouseLeave(index)}
+                    src={book.picture}
+                    alt="slika"
+                  />
+                  <p className="title">{book.title}</p>
+                  <p className="price">{book.price} RSD</p>
+                  {showAddToCartButton[index] === true && (
+                    <button onClick={() => addToCart(book)}>Add to cart</button>
+                  )}
+                </div>
               ))}
             </div>
-          </Swiper>
+          </div>
         </div>
       </div>
     </>
